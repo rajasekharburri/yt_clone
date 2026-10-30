@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing & coverage
+/coverage
+
+# Production build artifacts
+/build
+
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# OS & Logs & Reports
+*.log
+trivyfs.txt
+trivyimage.txt
+dependency-check-report.xml
+.DS_Store
+Thumbs.db
+
