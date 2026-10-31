@@ -1,36 +1,62 @@
 import React from "react";
-import { Stack } from "@mui/material";
+import { Stack, Box, Typography } from "@mui/material";
 
 import { categories } from "../utils/constants";
 
-const Categories = ({ selectedCategory, setSelectedCategory }) => (
+const Sidebar = ({ selectedCategory, setSelectedCategory }) => (
   <Stack
-    direction="row"
+    direction={{ xs: "row", md: "column" }}
     sx={{
       overflowY: "auto",
-      height: { sx: "auto", md: "95%" },
-      flexDirection: { md: "column" },
+      overflowX: { xs: "auto", md: "hidden" },
+      height: { xs: "auto", md: "calc(100vh - 90px)" },
+      gap: 0.8,
+      py: 1,
+      pr: { md: 1 },
+      "&::-webkit-scrollbar": {
+        width: "4px",
+      },
     }}
   >
-    {categories.map((category) => (
-      <button
-        className="category-btn"
-        onClick={() => setSelectedCategory(category.name)}
-        style={{
-          background: category.name === selectedCategory && "#FC1503",
-          color: "white",
+    <Box sx={{ display: { xs: "none", md: "block" }, px: 1.5, pb: 1 }}>
+      <Typography
+        variant="caption"
+        sx={{
+          color: "#64748b",
+          fontWeight: 700,
+          letterSpacing: "1.2px",
+          textTransform: "uppercase",
+          fontSize: "0.7rem",
         }}
-        key={category.name}
       >
-        <span style={{ color: category.name === selectedCategory ? "white" : "red", marginRight: "15px" }}>
-          {category.icon}
-        </span>
-        <span style={{ opacity: category.name === selectedCategory ? "1" : "0.8" }}>
-          {category.name}
-        </span>
-      </button>
-    ))}
+        Discover
+      </Typography>
+    </Box>
+
+    {categories.map((category) => {
+      const isSelected = category.name === selectedCategory;
+      return (
+        <button
+          key={category.name}
+          className={`category-btn ${isSelected ? "active" : ""}`}
+          onClick={() => setSelectedCategory(category.name)}
+        >
+          <Box
+            component="span"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              color: isSelected ? "#ffffff" : "#ff1e56",
+              transition: "transform 0.2s ease",
+            }}
+          >
+            {category.icon}
+          </Box>
+          <span>{category.name}</span>
+        </button>
+      );
+    })}
   </Stack>
 );
 
-export default Categories;
+export default Sidebar;
